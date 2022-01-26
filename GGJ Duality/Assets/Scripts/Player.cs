@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal") * moveSpeed;
 
         //make sure you don't slide on slopes
-        if (horizontal == 0.0f)
+        if (horizontal == 0.0f && controller.isOnSlope)
         {
             rb.sharedMaterial = sticky;
         }
