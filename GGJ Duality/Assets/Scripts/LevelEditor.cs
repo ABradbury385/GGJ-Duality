@@ -26,9 +26,19 @@ public class LevelEditor : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 pos = Input.mousePosition;
+
+
+            pos = cam.ScreenToWorldPoint(pos);
+
+            Debug.Log("Click: " + pos);
+
+            pos.x = RoundPosition(pos.x);
+            pos.y = RoundPosition(pos.y);
+
             pos.z = 10;
 
-            Instantiate(tile, cam.ScreenToWorldPoint(pos), Quaternion.identity);
+            Debug.Log("Spawn: " + pos);
+            Instantiate(tile, pos, Quaternion.identity);
         }
     }
 
@@ -46,5 +56,26 @@ public class LevelEditor : MonoBehaviour
                 Destroy(target);
             }
         }
+    }
+
+    private float RoundPosition(float _pos)
+    {
+        _pos = Mathf.Floor(_pos / 0.5f);
+        _pos = (_pos * 0.5f) + 0.25f;
+
+        /*        // round down
+                if((_pos % 1) < 0.5f)
+                {
+                    _pos = Mathf.Floor(_pos / 0.5f);
+                    _pos = _pos * 0.5f;
+                }
+                // round up
+                else
+                {
+                    _pos = Mathf.Ceil(_pos / 0.5f);
+                    _pos = _pos * 0.5f;
+                }*/
+
+        return _pos;
     }
 }
