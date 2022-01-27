@@ -8,54 +8,80 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] Camera cam;
     GameObject target;
     [SerializeField] GameObject tile;
+    [SerializeField] GameObject leftPlayer;
+    [SerializeField] GameObject rightPlayer;
+
+    Vector2 leftStart;
+    Vector2 rightStart;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        leftStart = leftPlayer.transform.position;
+        rightStart = rightPlayer.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Reset
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            leftPlayer.transform.position = leftStart;
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            rightPlayer.transform.position = rightStart;
+        }
+
+        // Delete
         if (Input.GetMouseButtonDown(1))
         {
             CheckMouseTarget();
         }
 
+        // Place
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 pos = Input.mousePosition;
+            Vector2 ray = cam.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+
+            if (!hit)
+            {
+                Vector3 pos = Input.mousePosition;
 
 
-            pos = cam.ScreenToWorldPoint(pos);
+                pos = cam.ScreenToWorldPoint(pos);
 
-            Debug.Log("Click: " + pos);
+                Debug.Log("Click: " + pos);
 
-            pos.x = RoundPosition(pos.x);
-            pos.y = RoundPosition(pos.y);
+                pos.x = RoundPosition(pos.x);
+                pos.y = RoundPosition(pos.y);
 
-            pos.z = 10;
+                pos.z = 10;
 
-            Debug.Log("Spawn: " + pos);
-            Instantiate(tile, pos, Quaternion.identity);
+                Debug.Log("Spawn: " + pos);
+                Instantiate(tile, pos, Quaternion.identity);
+            }
+
         }
     }
 
     private void CheckMouseTarget()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        Vector2 ray = cam.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
 
-        if(Physics.Raycast(ray, out hit))
+        if(hit)
         {
-            target = hit.transform.gameObject;
+            target = hit.collider.gameObject;
 
-            if(target.tag == "Tile")
+            if (target.tag == "Tile")
             {
                 Destroy(target);
             }
         }
+
     }
 
     private float RoundPosition(float _pos)
