@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - Ground
+  - Stairs
   layers:
   - Default
   - TransparentFX

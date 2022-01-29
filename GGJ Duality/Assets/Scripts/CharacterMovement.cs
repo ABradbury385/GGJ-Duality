@@ -23,6 +23,7 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         direction = Vector2.left;
         targetPos = transform.position;
+        Physics.IgnoreLayerCollision(1, 8);
     }
 
     // Update is called once per frame
@@ -53,5 +54,12 @@ public class CharacterMovement : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, (Vector2)transform.position- direction);
+    }
+
+    //Detect when there is a collision
+    void OnCollisionStay(Collision collide)
+    {
+        //Output the name of the GameObject you collide with
+        Debug.Log("I hit the GameObject : " + collide.gameObject.name);
     }
 }
