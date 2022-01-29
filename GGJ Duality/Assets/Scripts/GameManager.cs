@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject target;
     [SerializeField] private Camera cam;
+    [SerializeField] private LayerMask mask;
 
 
     // Start is called before the first frame update
@@ -38,6 +39,11 @@ public class GameManager : MonoBehaviour
                 CheckStairs();
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateEnemies();
     }
 
     private void CheckVictory()
@@ -133,7 +139,7 @@ public class GameManager : MonoBehaviour
         foreach(Student enemy in enemyList)
         {
             // If the ghost is nearby, scare the student
-            if(!enemy.IsScared && Vector2.Distance(ghost.transform.position, transform.position) <= 2)
+            if(!enemy.IsScared && Vector2.Distance(ghost.transform.position, enemy.transform.position) <= 2)
             {
                 Debug.Log("Ghost nearby...");
                 enemy.IsScared = true;
@@ -145,24 +151,36 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Searching...");
 
-                Vector2 ray = transform.position - girl.transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, 0);
+                Vector2 ray = girl.transform.position - enemy.transform.position;
+                ray.y = 0;
+                RaycastHit2D hit = Physics2D.Raycast(enemy.transform.position, ray, 10, mask);
+                Debug.DrawRay(enemy.transform.position, ray);
 
-                if(!hit)
+                if(hit)
                 {
-                    Debug.Log("Chasing the girl...");
-                    enemy.MoveToPosition(girl.transform.position);
+                    Debug.Log(hit.collider.gameObject);
+
+                    if (hit.collider.gameObject.tag == "Player")
+                    {
+                        Debug.Log("Chasing the girl...");
+                        enemy.MoveToPosition(girl.transform.position);
+                    }
                 }
             }
 
             // If the ghost left, unscare the student
-            if(enemy.IsScared && Vector2.Distance(ghost.transform.position, transform.position) > 2)
+            if(enemy.IsScared && Vector2.Distance(ghost.transform.position, enemy.transform.position) > 2)
             {
 
                 Debug.Log("Ghost left...");
                 enemy.IsScared = false;
-                enemy.gameObject.layer = 0;
+                enemy.gameObject.layer = 8;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        
     }
 }
