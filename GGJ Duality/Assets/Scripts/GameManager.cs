@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private bool hasKey;
     [SerializeField] private bool victory;
-    [SerializeField] private List<GameObject> enemyList;
-    [SerializeField] private List<Door> doorList;
+    [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
     [SerializeField] private GameObject girl;
     [SerializeField] private GameObject goal;
@@ -27,19 +26,17 @@ public class GameManager : MonoBehaviour
     {
         if(!victory)
         {
-            // Update all enemies
-            // Update all doors
+            //UpdateEnemies();
 
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                CheckClickGirl();
+            }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            CheckClick();
-        }
-
-        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            CheckStairs();
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                CheckStairs();
+            }
         }
     }
 
@@ -54,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     // Checks if the mouse click hits a toggleable object. If it does, checks if the girl is nearby.
     //      If both are true, tries to toggle the object.
-    private void CheckClick()
+    private void CheckClickGirl()
     {
         Vector2 ray = cam.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
@@ -75,9 +72,30 @@ public class GameManager : MonoBehaviour
                     toggleable.Toggle();
                 }
             }
+
+            if (target.gameObject.name == "Key")
+            {
+                if (Vector2.Distance(girl.transform.position, target.transform.position) <= 1)
+                {
+                    Destroy(target);
+                    hasKey = true;
+                }
+            }
+
+            if (target.gameObject.name == "LockedDoor")
+            {
+                if (Vector2.Distance(girl.transform.position, target.transform.position) <= 1)
+                {
+                    if (hasKey)
+                    {
+                        Destroy(target);
+                    }
+                }
+            }
         }
     }
 
+    // Checks if a character tried to use the stairs
     private void CheckStairs()
     {
         Vector2 ray = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -106,6 +124,44 @@ public class GameManager : MonoBehaviour
                         ghost.transform.position = stairs.OutStairLocation;
                     }
                 }
+            }
+        }
+    }
+
+    private void UpdateEnemies()
+    {
+        foreach(Student enemy in enemyList)
+        {
+            // If the ghost is nearby, scare the student
+            if(!enemy.IsScared && Vector2.Distance(ghost.transform.position, transform.position) <= 2)
+            {
+                Debug.Log("Ghost nearby...");
+                enemy.IsScared = true;
+                enemy.gameObject.layer = 1;
+            }
+
+            // If the student is not scared and there is a clear path to the girl, chase the girl.
+            if(!enemy.IsScared)
+            {
+                Debug.Log("Searching...");
+
+                Vector2 ray = transform.position - girl.transform.position;
+                RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, 0);
+
+                if(!hit)
+                {
+                    Debug.Log("Chasing the girl...");
+                    enemy.MoveToPosition(girl.transform.position);
+                }
+            }
+
+            // If the ghost left, unscare the student
+            if(enemy.IsScared && Vector2.Distance(ghost.transform.position, transform.position) > 2)
+            {
+
+                Debug.Log("Ghost left...");
+                enemy.IsScared = false;
+                enemy.gameObject.layer = 0;
             }
         }
     }

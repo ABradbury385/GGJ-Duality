@@ -5,14 +5,12 @@ using UnityEngine;
 public class Door : Togglable
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private bool isOpen;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public override void Toggle()
@@ -20,14 +18,14 @@ public class Door : Togglable
         if (isOpen)
         {
             isOpen = false;
-            spriteRenderer.color = Color.white;
-            boxCollider.enabled = true;
+            spriteRenderer.color = new Color(0.47f, 0.25f, 0);
+            gameObject.layer = 0;
         }
         else
         {
             isOpen = true;
-            spriteRenderer.color = new Color(1, 1, 1, 0.5f);
-            boxCollider.enabled = false;
+            spriteRenderer.color = new Color(0.47f, 0.25f, 0, 0.5f);
+            gameObject.layer = 1;
         }
     }
 }
