@@ -14,9 +14,11 @@ public class CharacterMovement : MonoBehaviour
     private float horizontalMovement;
     private Vector2 direction;
     private Vector3 mousePos;
-    private Vector2 targetPos;
+    public Vector2 targetPos;
     private Rigidbody2D rb;
     private Animator animator;
+    [SerializeField] LayerMask wallMask;
+    private BoxCollider2D collider;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class CharacterMovement : MonoBehaviour
         targetPos = transform.position;
         Physics.IgnoreLayerCollision(1, 8);
         animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -36,16 +39,21 @@ public class CharacterMovement : MonoBehaviour
             targetPos = transform.position;
         }
 
+        if(transform.position.x == targetPos.x)
+        {
+            horizontalMovement = 0.0f;
+        }
+
         if (Input.GetMouseButtonDown(movementMouseClick))
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPos = new Vector2(mousePos.x, transform.position.y);
-            direction = ((Vector2)transform.position - targetPos).normalized;
-            horizontalMovement = moveSpeed;
+            direction = (targetPos - (Vector2)transform.position).normalized;
+            horizontalMovement = moveSpeed * direction.x;
         }
 
         animator.SetFloat("Look X", direction.x);
-        animator.SetFloat("Speed", rb.velocity.x);
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
     }
 
     private void FixedUpdate()
@@ -58,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, direction - (Vector2)transform.position);
+        Gizmos.DrawWireSphere(direction + (Vector2)transform.position, .1f);
     }
 
     //Detect when there is a collision
