@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool victory;
     [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
+    private CharacterMovement ghostController;
     [SerializeField] private GameObject girl;
+    private CharacterMovement girlController;
     private BoxCollider2D girlBoxCollider;
     private bool isGirlInLocker;
     [SerializeField] private GameObject goal;
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour
         isGirlInLocker = false;
 
         girlBoxCollider = girl.GetComponent<BoxCollider2D>();
+        girlController = girl.GetComponent<CharacterMovement>();
+        ghostController = ghost.GetComponent<CharacterMovement>();
 
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = bgMusic;
@@ -189,6 +193,7 @@ public class GameManager : MonoBehaviour
                     if (Vector2.Distance(girl.transform.position, stairs.transform.position) <= 1)
                     {
                         girl.transform.position = stairs.OutStairLocation;
+                        girlController.targetPos = girl.transform.position;
                     }
                 }
 
@@ -198,6 +203,7 @@ public class GameManager : MonoBehaviour
                     if (Vector2.Distance(ghost.transform.position, stairs.transform.position) <= 1)
                     {
                         ghost.transform.position = stairs.OutStairLocation;
+                        ghostController.targetPos = ghost.transform.position;
                     }
                 }
             }
@@ -220,6 +226,7 @@ public class GameManager : MonoBehaviour
                 enemy.IsScared = true;
                 enemy.gameObject.layer = 1;
                 enemy.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.38f, 0.5f, 1);
+                enemy.MoveValue = 0.0f;
             }
 
             // If the student is not scared and there is a clear path to the girl, chase the girl.
@@ -235,6 +242,10 @@ public class GameManager : MonoBehaviour
                     if (hit.collider.gameObject.tag == "Player")
                     {
                         enemy.MoveToPosition(girl.transform.position);
+                    }
+                    else
+                    {
+                        enemy.MoveValue = 0.0f;
                     }
                 }
             }

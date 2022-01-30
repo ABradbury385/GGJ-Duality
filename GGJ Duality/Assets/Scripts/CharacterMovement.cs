@@ -14,7 +14,7 @@ public class CharacterMovement : MonoBehaviour
     private float horizontalMovement;
     private Vector2 direction;
     private Vector3 mousePos;
-    private Vector2 targetPos;
+    public Vector2 targetPos;
     private Rigidbody2D rb;
     private Animator animator;
     [SerializeField] LayerMask wallMask;

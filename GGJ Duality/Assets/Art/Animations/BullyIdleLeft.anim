@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GhostIdleRight
+  m_Name: BullyIdleLeft
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -48,7 +48,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 9027489105264590268, guid: ed998b903a73b8149b44e10f7e96b325, type: 3}
+      value: {fileID: -3763824636803078212, guid: 191319525d73e3a4186c6398b9c5e381, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -75,7 +75,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 9027489105264590268, guid: ed998b903a73b8149b44e10f7e96b325, type: 3}
+    - {fileID: -3763824636803078212, guid: 191319525d73e3a4186c6398b9c5e381, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
