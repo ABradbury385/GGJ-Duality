@@ -525,6 +525,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4805360623454104783, guid: fa757650f766d3941af4f67e84ec96a5, type: 3}
   m_PrefabInstance: {fileID: 1116940758}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &274210042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1796300006414603803, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+  m_PrefabInstance: {fileID: 1796300007382635930}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &274210045
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274210042}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &282758635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4672,6 +4773,34 @@ PrefabInstance:
       propertyPath: ghost
       value: 
       objectReference: {fileID: 1046530670}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: bgMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 853befdc971d2af44b0f15a69a25f0c3, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: doorClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c13d91964c42ab34699c0c3458975f5f, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: lockerClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a8ae606c1c7903949b7050dcb010f7b2, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: pickupClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d9d121730019794f812551e83f8f739, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: useKeyClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f46a948d10ff3df4ab531addc6bff639, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: lockedDoorClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e7f0a66cbaceb4a4c869893eba0032fc, type: 3}
+    - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
+      propertyPath: pressSwitchClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c811063127f77a45b9b04de056b4095, type: 3}
     - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
       propertyPath: enemyList.Array.size
       value: 2

@@ -12,9 +12,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject girl;
     private bool isGirlInLocker;
     [SerializeField] private GameObject goal;
-    [SerializeField] private GameObject target;
+    private GameObject target;
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask mask;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip lockedDoorClip;
+    [SerializeField] private AudioClip useKeyClip;
+    [SerializeField] private AudioClip doorClip;
+    [SerializeField] private AudioClip lockerClip;
+    [SerializeField] private AudioClip pickupClip;
+    [SerializeField] private AudioClip pressSwitchClip;
+    [SerializeField] private AudioClip useStairsClip;
+    [SerializeField] private AudioClip bgMusic;
+    private AudioSource audioSource;
 
 
     // Start is called before the first frame update
@@ -22,6 +33,9 @@ public class GameManager : MonoBehaviour
     {
         victory = false;
         isGirlInLocker = false;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = bgMusic;
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -91,6 +105,18 @@ public class GameManager : MonoBehaviour
                 {
                     toggleable.Toggle();
 
+                    // Door
+                    if (toggleable.gameObject.name == "Door")
+                    {
+                        audioSource.PlayOneShot(doorClip);
+                    }
+
+                    // Light switch
+                    if(toggleable.gameObject.name == "LightSwitch")
+                    {
+                        audioSource.PlayOneShot(pressSwitchClip);
+                    }
+
                     // Locker
                     if(toggleable.gameObject.name == "Locker")
                     {
@@ -98,26 +124,31 @@ public class GameManager : MonoBehaviour
                         {
                             girl.SetActive(false);
                             isGirlInLocker = true;
+                            audioSource.PlayOneShot(lockerClip);
                         }
                         else
                         {
                             Debug.Log("Girl out of locker");
                             girl.SetActive(true);
                             isGirlInLocker = false;
+                            audioSource.PlayOneShot(lockerClip);
                         }
                     }
                 }
             }
 
+            // Pickup a key
             if (target.TryGetComponent<Key>(out Key key))
             {
                 if (Vector2.Distance(girl.transform.position, key.transform.position) <= 1)
                 {
                     keysAquired.Add(key.KeyNumber);
                     Destroy(target);
+                    audioSource.PlayOneShot(pickupClip);
                 }
             }
 
+            // Open a locked door
             if (target.TryGetComponent<LockedDoor>(out LockedDoor door))
             {
                 if (Vector2.Distance(girl.transform.position, door.transform.position) <= 1)
@@ -125,6 +156,11 @@ public class GameManager : MonoBehaviour
                     if (keysAquired.Contains(door.DoorNumber))
                     {
                         Destroy(target);
+                        audioSource.PlayOneShot(useKeyClip);
+                    }
+                    else
+                    {
+                        audioSource.PlayOneShot(lockedDoorClip);
                     }
                 }
             }
