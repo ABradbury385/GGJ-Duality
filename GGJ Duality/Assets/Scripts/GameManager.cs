@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(victory)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
         if(!victory)
         {
             //UpdateEnemies();
@@ -38,6 +44,13 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {
                 CheckStairs();
+            }
+
+            // Checks victory
+            if(Vector2.Distance(goal.transform.position, girl.transform.position) <= 1
+                && Vector2.Distance(goal.transform.position, ghost.transform.position) <= 1)
+            {
+                victory = true;
             }
         }
     }
