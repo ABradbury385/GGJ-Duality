@@ -20,11 +20,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         victory = false;
-
-        girlSpriteRenderer = girl.GetComponent<SpriteRenderer>();
-        girlRB = girl.GetComponent<Rigidbody2D>();
-        girlBoxCollider = girl.GetComponent<BoxCollider2D>();
-        girlMovement = girl.GetComponent<CharacterMovement>();
         isGirlInLocker = false;
     }
 
