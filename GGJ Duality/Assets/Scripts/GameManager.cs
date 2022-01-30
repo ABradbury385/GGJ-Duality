@@ -219,6 +219,7 @@ public class GameManager : MonoBehaviour
             {
                 enemy.IsScared = true;
                 enemy.gameObject.layer = 1;
+                enemy.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.38f, 0.5f, 1);
             }
 
             // If the student is not scared and there is a clear path to the girl, chase the girl.
@@ -243,6 +244,7 @@ public class GameManager : MonoBehaviour
             {
                 enemy.IsScared = false;
                 enemy.gameObject.layer = 8;
+                enemy.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
     }
