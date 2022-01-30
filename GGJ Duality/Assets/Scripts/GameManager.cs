@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private List<int> keysAquired;
     [SerializeField] private bool victory;
+    private bool isFading;
     [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
     private CharacterMovement ghostController;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     private GameObject target;
     [SerializeField] private Camera cam;
     [SerializeField] private LayerMask mask;
+    [SerializeField] private SceneChanger sceneChanger;
 
     [Header("Audio")]
     [SerializeField] private AudioClip lockedDoorClip;
@@ -31,15 +33,19 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         victory = false;
+        isFading = false;
         isGirlInLocker = false;
 
         girlBoxCollider = girl.GetComponent<BoxCollider2D>();
         girlController = girl.GetComponent<CharacterMovement>();
         ghostController = ghost.GetComponent<CharacterMovement>();
+
+        sceneChanger = GetComponent<SceneChanger>();
 
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = bgMusic;
@@ -49,9 +55,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(victory)
+        if(victory && !isFading)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            isFading = true;
+            sceneChanger.ChangeScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
         if(!victory)
