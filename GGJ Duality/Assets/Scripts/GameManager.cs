@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private bool hasKey;
+    [SerializeField] private List<int> keysAquired;
     [SerializeField] private bool victory;
     [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
     [SerializeField] private GameObject girl;
-    private SpriteRenderer girlSpriteRenderer;
-    private Rigidbody2D girlRB;
-    private BoxCollider2D girlBoxCollider;
-    private CharacterMovement girlMovement;
     private bool isGirlInLocker;
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject target;
@@ -24,7 +20,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         victory = false;
-        hasKey = false;
 
         girlSpriteRenderer = girl.GetComponent<SpriteRenderer>();
         girlRB = girl.GetComponent<Rigidbody2D>();
@@ -106,20 +101,20 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (target.gameObject.name == "Key")
+            if (target.TryGetComponent<Key>(out Key key))
             {
-                if (Vector2.Distance(girl.transform.position, target.transform.position) <= 1)
+                if (Vector2.Distance(girl.transform.position, key.transform.position) <= 1)
                 {
+                    keysAquired.Add(key.KeyNumber);
                     Destroy(target);
-                    hasKey = true;
                 }
             }
 
-            if (target.gameObject.name == "LockedDoor")
+            if (target.TryGetComponent<LockedDoor>(out LockedDoor door))
             {
-                if (Vector2.Distance(girl.transform.position, target.transform.position) <= 1)
+                if (Vector2.Distance(girl.transform.position, door.transform.position) <= 1)
                 {
-                    if (hasKey)
+                    if (keysAquired.Contains(door.DoorNumber))
                     {
                         Destroy(target);
                     }
