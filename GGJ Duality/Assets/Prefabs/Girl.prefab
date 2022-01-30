@@ -147,6 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   movementMouseClick: 0
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!95 &2195481689499351990
 Animator:
   serializedVersion: 3
