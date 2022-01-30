@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightSwitch : Togglable
 {
     [SerializeField] private GameObject lightArea;
+    [SerializeField] private GameObject darkArea;
     [SerializeField] private bool toggled;
 
     // Start is called before the first frame update
@@ -13,10 +14,20 @@ public class LightSwitch : Togglable
         if(toggled)
         {
             lightArea.SetActive(true);
+
+            if (darkArea != null)
+            {
+                darkArea.SetActive(false);
+            }
         }
         else
         {
             lightArea.SetActive(false);
+
+            if (darkArea != null)
+            {
+                darkArea.SetActive(true);
+            }
         }
     }
 
@@ -27,11 +38,21 @@ public class LightSwitch : Togglable
         {
             toggled = false;
             lightArea.SetActive(false);
+
+            if (darkArea != null)
+            {
+                darkArea.SetActive(true);
+            }
         }
         else
         {
             toggled = true;
             lightArea.SetActive(true);
+
+            if (darkArea != null)
+            {
+                darkArea.SetActive(false);
+            }
         }
     }
 }

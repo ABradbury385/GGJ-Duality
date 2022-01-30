@@ -1727,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 1046530670}
     - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
       propertyPath: enemyList.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1796300006414603800, guid: bd937e8493ff8f34f804f160827328c3, type: 3}
       propertyPath: enemyList.Array.data[0]

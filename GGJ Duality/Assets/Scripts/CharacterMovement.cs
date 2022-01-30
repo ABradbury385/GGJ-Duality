@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rb.velocity.y < 0.0f)
+        if (rb.velocity.y < 0.0f)
         {
             targetPos = transform.position;
         }
@@ -47,7 +47,7 @@ public class CharacterMovement : MonoBehaviour
     {
         //move to clicked position
         float step = moveSpeed * Time.deltaTime;
-        rb.position = Vector2.MoveTowards(transform.position, targetPos, step);
+        rb.position = Vector2.MoveTowards(transform.position, new Vector2(targetPos.x, transform.position.y), step);
     }
 
     private void OnDrawGizmosSelected()
