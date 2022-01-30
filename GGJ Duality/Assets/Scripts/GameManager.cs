@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
     [SerializeField] private GameObject girl;
+    private BoxCollider2D girlBoxCollider;
     private bool isGirlInLocker;
     [SerializeField] private GameObject goal;
     private GameObject target;
@@ -33,6 +34,9 @@ public class GameManager : MonoBehaviour
     {
         victory = false;
         isGirlInLocker = false;
+
+        girlBoxCollider = girl.GetComponent<BoxCollider2D>();
+
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = bgMusic;
         audioSource.Play();
@@ -204,6 +208,12 @@ public class GameManager : MonoBehaviour
     {
         foreach(Student enemy in enemyList)
         {
+            // Reloads the scene if an enemy collides with the girl
+            if(enemy.GetComponent<BoxCollider2D>().IsTouching(girlBoxCollider))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
             // If the ghost is nearby, scare the student
             if(!enemy.IsScared && Vector2.Distance(ghost.transform.position, enemy.transform.position) <= 2)
             {
