@@ -141,7 +141,6 @@ public class GameManager : MonoBehaviour
             // If the ghost is nearby, scare the student
             if(!enemy.IsScared && Vector2.Distance(ghost.transform.position, enemy.transform.position) <= 2)
             {
-                Debug.Log("Ghost nearby...");
                 enemy.IsScared = true;
                 enemy.gameObject.layer = 1;
             }
@@ -149,8 +148,6 @@ public class GameManager : MonoBehaviour
             // If the student is not scared and there is a clear path to the girl, chase the girl.
             if(!enemy.IsScared)
             {
-                Debug.Log("Searching...");
-
                 Vector2 ray = girl.transform.position - enemy.transform.position;
                 ray.y = 0;
                 RaycastHit2D hit = Physics2D.Raycast(enemy.transform.position, ray, 10, mask);
@@ -158,11 +155,8 @@ public class GameManager : MonoBehaviour
 
                 if(hit)
                 {
-                    Debug.Log(hit.collider.gameObject);
-
                     if (hit.collider.gameObject.tag == "Player")
                     {
-                        Debug.Log("Chasing the girl...");
                         enemy.MoveToPosition(girl.transform.position);
                     }
                 }
@@ -171,16 +165,9 @@ public class GameManager : MonoBehaviour
             // If the ghost left, unscare the student
             if(enemy.IsScared && Vector2.Distance(ghost.transform.position, enemy.transform.position) > 2)
             {
-
-                Debug.Log("Ghost left...");
                 enemy.IsScared = false;
                 enemy.gameObject.layer = 8;
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        
     }
 }
