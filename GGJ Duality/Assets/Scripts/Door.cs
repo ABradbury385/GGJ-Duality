@@ -18,13 +18,13 @@ public class Door : Togglable
         if (isOpen)
         {
             isOpen = false;
-            spriteRenderer.color = new Color(0.47f, 0.25f, 0);
+            spriteRenderer.color = Color.white;
             gameObject.layer = 0;
         }
         else
         {
             isOpen = true;
-            spriteRenderer.color = new Color(0.47f, 0.25f, 0, 0.5f);
+            spriteRenderer.color = new Color(0.65f, 0.65f, 0.65f);
             gameObject.layer = 1;
         }
     }
