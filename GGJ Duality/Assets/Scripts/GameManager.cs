@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Student> enemyList;
     [SerializeField] private GameObject ghost;
     [SerializeField] private GameObject girl;
+    private SpriteRenderer girlSpriteRenderer;
+    private Rigidbody2D girlRB;
+    private BoxCollider2D girlBoxCollider;
+    private CharacterMovement girlMovement;
+    private bool isGirlInLocker;
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject target;
     [SerializeField] private Camera cam;
@@ -20,6 +25,12 @@ public class GameManager : MonoBehaviour
     {
         victory = false;
         hasKey = false;
+
+        girlSpriteRenderer = girl.GetComponent<SpriteRenderer>();
+        girlRB = girl.GetComponent<Rigidbody2D>();
+        girlBoxCollider = girl.GetComponent<BoxCollider2D>();
+        girlMovement = girl.GetComponent<CharacterMovement>();
+        isGirlInLocker = false;
     }
 
     // Update is called once per frame
@@ -65,17 +76,30 @@ public class GameManager : MonoBehaviour
         if(hit)
         {
             target = hit.collider.gameObject;
-            Debug.Log("Hit a target...");
 
             // Toggleable
             if (target.TryGetComponent<Togglable>(out Togglable toggleable))
             {
-                Debug.Log("Target is a togglable...");
                 Debug.Log(Vector2.Distance(girl.transform.position, toggleable.transform.position));
                 if (Vector2.Distance(girl.transform.position, toggleable.transform.position) <= 1)
                 {
-                    Debug.Log("Trying to toggle object...");
                     toggleable.Toggle();
+
+                    // Locker
+                    if(toggleable.gameObject.name == "Locker")
+                    {
+                        if(!isGirlInLocker)
+                        {
+                            girl.SetActive(false);
+                            isGirlInLocker = true;
+                        }
+                        else
+                        {
+                            Debug.Log("Girl out of locker");
+                            girl.SetActive(true);
+                            isGirlInLocker = false;
+                        }
+                    }
                 }
             }
 
