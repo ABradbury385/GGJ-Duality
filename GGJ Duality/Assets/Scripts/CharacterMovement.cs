@@ -16,14 +16,16 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 mousePos;
     private Vector2 targetPos;
     private Rigidbody2D rb;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        direction = Vector2.left;
+        direction = Vector2.right;
         targetPos = transform.position;
         Physics.IgnoreLayerCollision(1, 8);
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,9 @@ public class CharacterMovement : MonoBehaviour
             direction = ((Vector2)transform.position - targetPos).normalized;
             horizontalMovement = moveSpeed;
         }
+
+        animator.SetFloat("Look X", direction.x);
+        animator.SetFloat("Speed", rb.velocity.x);
     }
 
     private void FixedUpdate()
@@ -53,7 +58,7 @@ public class CharacterMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position- direction);
+        Gizmos.DrawLine(transform.position, direction - (Vector2)transform.position);
     }
 
     //Detect when there is a collision
