@@ -54,7 +54,10 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateEnemies();
+        if(enemyList.Count > 0)
+        {
+            UpdateEnemies();
+        }
     }
 
     private void CheckVictory()
