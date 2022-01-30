@@ -82,6 +82,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2702424758897639967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4019573029182389748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49c73882bca947440b381706ec061652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorNumber: 0
 --- !u!1001 &2351302576888881138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91,7 +104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1687131753082528262, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
       propertyPath: m_Name
-      value: LockedDoor
+      value: LockedDoor Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1687131753082528263, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
       propertyPath: m_RootOrder
@@ -140,6 +153,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1687131753082528261, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
+--- !u!1 &4019573029182389748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1687131753082528262, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
+  m_PrefabInstance: {fileID: 2351302576888881138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4019573029182389749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1687131753082528263, guid: a24d85289202daf4a8235cb601eb729d, type: 3}
